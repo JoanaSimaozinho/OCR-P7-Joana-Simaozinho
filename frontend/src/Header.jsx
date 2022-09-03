@@ -1,5 +1,5 @@
 import React from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure, Menu } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Routes, Route, Link } from "react-router-dom";
 
@@ -31,7 +31,7 @@ function Header() {
         {/* route Profile */}
         <Route path="profile" element={<Profile />} />
          {/*Route Error page */}
-        {/* <Route path="error" element={<Error />} />  */}
+        <Route path="error" element={<Error />} /> 
       </Routes>
     </div>
 
@@ -43,7 +43,7 @@ function Header() {
                 <div className="flex h-16 justify-between">
                   <div className="flex">
                     <div className="flex flex-shrink-0 items-center">
-                      <img className='w-36' src="../img/icon-left-font.png" />
+                      <img className='w-36' src="../img/icon-left-font.png" alt='logo' />
                     </div>
                     <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                       {navigation.map((item) => (
@@ -146,34 +146,34 @@ function Profile() {
   )
 }
 
-// function Error() {
-//   return (
-//     <>
-//       <main
-//         className="min-h-full bg-cover bg-top sm:bg-top"
-//         style={{
-//           backgroundImage:
-//             'url("../img/pageerror.jpg")',
-//         }}
-//       >
-//         <div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8 lg:py-48">
-//           <p className="text-base font-semibold text-black text-opacity-50">404</p>
-//           <h1 className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">Uh oh! Je crois que vous êtes perdu.</h1>
-//           <p className="mt-2 text-lg font-medium text-black text-opacity-50">
-//           Il semble que la page que vous recherchez n'existe pas.
-//           </p>
-//           <div className="mt-6">
-//             <Link
-//               href="/"
-//               className="inline-flex items-center rounded-md border border-transparent bg-white bg-opacity-75 px-4 py-2 text-sm font-medium text-black text-opacity-75 sm:bg-opacity-25 sm:hover:bg-opacity-50"
-//             >
-//               Retour à l'Accueil
-//             </Link>
-//           </div>
-//         </div>
-//       </main>
-//     </>
-//   )
-// }
+function Error() {
+  return (
+    <>
+      <main
+        className="min-h-full bg-cover bg-top sm:bg-top"
+        style={{
+          backgroundImage:
+            'url("../img/pageerror.jpg")',
+        }}
+      >
+        <div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8 lg:py-48">
+          <p className="text-base font-semibold text-black text-opacity-50">404</p>
+          <h1 className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">Uh oh! Je crois que vous êtes perdu.</h1>
+          <p className="mt-2 text-lg font-medium text-black text-opacity-50">
+          Il semble que la page que vous recherchez n'existe pas.
+          </p>
+          <div className="mt-6">
+            <Link
+              href="/"
+              className="inline-flex items-center rounded-md border border-transparent bg-white bg-opacity-75 px-4 py-2 text-sm font-medium text-black text-opacity-75 sm:bg-opacity-25 sm:hover:bg-opacity-50"
+            >
+              Retour à l'Accueil
+            </Link>
+          </div>
+        </div>
+      </main>
+    </>
+  )
+}
 
 export default Header
