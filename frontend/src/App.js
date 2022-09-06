@@ -45,17 +45,17 @@ function App() {
       <Routes>
         {/* Route login */}
         <Route path="/" element={<Login />} />
-        {/* route signin */}
-        <Route path="signin" element={<Signin />} /> 
-        {/* Route Header */}
-        <Route path="header" element={<Header />} />
+        {/* route signup */}
+        <Route path="signup" element={<Signup />} /> 
         {/* Route Accueil */}
-        <Route path="accueil" element={<Accueil />} /> 
+        <Route path="accueil" element={<Accueil />} />
+        {/* Route Post */}
+        <Route path="post" element={<Post />} /> 
         {/* route Profile */}
         <Route path="profile" element={<Profile />} />
          {/*Route Error page */}
         <Route path="error" element={<Error />} /> 
-        {/* Route signup */}
+        {/* Route logout */}
         <Route path="logout" element={<Logout />} /> 
       </Routes>
     </div>
@@ -73,7 +73,7 @@ function Login() {
           <p className="mt-2 text-sm text-center text-gray-600">
             Ou{' '}
             <nav>
-              <Link className="font-medium text-[#FD2D01] hover:text-red-500" to="/signin">Inscrivez-vous</Link>
+              <Link className="font-medium text-[#FD2D01] hover:text-red-500" to="/signup">Inscrivez-vous</Link>
             </nav>              
           </p>
         </div>
@@ -143,7 +143,7 @@ function Login() {
   );
 }
 
-function Signin() {
+function Signup() {
   return (
        <>
         <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
@@ -233,7 +233,7 @@ function Logout() {
   )
 }
 
-function Header() {
+function Accueil() {
   return (
     <>
       <div className="min-h-full">
@@ -341,7 +341,7 @@ function Header() {
   )
 }
 
-function Accueil() {
+function Post() {
   const [selected, setSelected] = useState(moods[5])
   return (
     <div className="flex items-start w-11/12 mt-4 space-x-4">
@@ -789,7 +789,7 @@ function Error() {
           </p>
           <div className="mt-6">
             <Link
-              href="header"
+              href="accueil"
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-black text-opacity-75 bg-white bg-opacity-75 border border-transparent rounded-md sm:bg-opacity-25 sm:hover:bg-opacity-50"
             >
               Retour à l'Accueil
