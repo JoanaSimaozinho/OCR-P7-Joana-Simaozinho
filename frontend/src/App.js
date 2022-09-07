@@ -258,8 +258,7 @@ function Post() {
                               : 'border-transparent text-gray-500 hover:border-[#FD2D01] hover:text-[#FD2D01]',
                             'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
                           )}
-                          aria-current={item.current ? 'page' : undefined}
-                        >
+                          aria-current={item.current ? 'page' : undefined}>
                           {item.name}
                         </a>
                       ))}
@@ -268,12 +267,10 @@ function Post() {
                   <div className="hidden sm:ml-6 sm:flex sm:items-center">
                     <button
                       type="button"
-                      className="rounded-full bg-white p-1 text-[#FD2D01] hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-[#FD2D01] focus:ring-offset-2"
-                    >
+                      className="rounded-full bg-white p-1 text-[#FD2D01] hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-[#FD2D01] focus:ring-offset-2">
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="w-6 h-6" aria-hidden="true" />
                     </button>
-
                     <Menu as="div" className="relative ml-3">
                       <div>
                         <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#FD2D01] focus:ring-offset-2">
@@ -309,8 +306,7 @@ function Post() {
                           : 'border-transparent text-gray-600 hover:bg-red-50 hover:border-[#FD2D01] hover:text-[#FD2D01]',
                         'block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
                       )}
-                      aria-current={item.current ? 'page' : undefined}
-                    >
+                      aria-current={item.current ? 'page' : undefined}>
                       {item.name}
                     </Disclosure.Button>
                   ))}
@@ -326,8 +322,7 @@ function Post() {
                     </div>
                     <button
                       type="button"
-                      className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FD2D01] focus:ring-offset-2"
-                    >
+                      className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FD2D01] focus:ring-offset-2">
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="w-6 h-6" aria-hidden="true" />
                     </button>
