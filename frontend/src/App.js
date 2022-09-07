@@ -12,7 +12,6 @@ import {
   FireIcon,
   HeartIcon,
 } from '@heroicons/react/20/solid'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const moods = [
@@ -47,16 +46,12 @@ function App() {
         <Route path="/" element={<Login />} />
         {/* route signup */}
         <Route path="signup" element={<Signup />} /> 
-        {/* Route Accueil */}
-        {/* <Route path="accueil" element={<Accueil />} /> */}
         {/* Route Post */}
         <Route path="post" element={<Post />} /> 
         {/* route Profile */}
         <Route path="profile" element={<Profile />} />
          {/*Route Error page */}
         <Route path="error" element={<Error />} /> 
-        {/* Route logout */}
-        {/* <Route path="logout" element={<Logout />} />  */}
       </Routes>
     </div>
   );
@@ -223,16 +218,6 @@ function Signup() {
   );
 }
 
-// function Logout() {
-//   return (
-//     <div>
-//       <nav>
-//         <Link className="font-medium text-[#FD2D01] hover:text-red-500" to="/">Déconnexion</Link>
-//       </nav> 
-//     </div>
-//   )
-// }
-
 function Post() {
   const [selected, setSelected] = useState(moods[5])
   return (
@@ -337,22 +322,22 @@ function Post() {
       <div className="flex-shrink-0">
         <img
           className="inline-block w-10 h-10 rounded-full"
-          src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="./img/pageerror.jpg"
           alt=""
         />
       </div>
       <div className="flex-1 min-w-0">
         <form action="#">
-          <div className="border-b border-gray-200 focus-within:border-indigo-600">
+          <div className="border-b border-gray-200 focus-within:border-red-600">
             <label htmlFor="comment" className="sr-only">
-              Add your comment
+              Quoi de neuf ?
             </label>
             <textarea
               rows={3}
               name="comment"
               id="comment"
               className="block w-full p-0 pb-2 border-0 border-b border-transparent resize-none focus:border-indigo-600 focus:ring-0 sm:text-sm"
-              placeholder="Add your comment..."
+              placeholder="Quoi de neuf ?"
               defaultValue={''}
             />
           </div>
@@ -363,22 +348,22 @@ function Post() {
                   type="button"
                   className="inline-flex items-center justify-center w-10 h-10 -m-2 text-gray-400 rounded-full hover:text-gray-500"
                 >
-                  <FontAwesomeIcon icon="fas fa-paperclip" />                  
-                  <span className="sr-only">Attach a file</span>
+                  <PaperClipIcon className="w-5 h-5" aria-hidden="true" />
+                  <span className="sr-only">Ajouter un fichier</span>
                 </button>
               </div>
               <div className="flow-root">
                 <Listbox value={selected} onChange={setSelected}>
                   {({ open }) => (
                     <>
-                      <Listbox.Label className="sr-only"> Your mood </Listbox.Label>
+                      <Listbox.Label className="sr-only"> Ton mood </Listbox.Label>
                       <div className="relative">
                         <Listbox.Button className="relative inline-flex items-center justify-center w-10 h-10 -m-2 text-gray-400 rounded-full hover:text-gray-500">
                           <span className="flex items-center justify-center">
                             {selected.value === null ? (
                               <span>
                                 <FaceSmileIconOutline className="flex-shrink-0 w-6 h-6" aria-hidden="true" />
-                                <span className="sr-only"> Add your mood </span>
+                                <span className="sr-only"> Ajoute ton mood </span>
                               </span>
                             ) : (
                               <span>
@@ -442,9 +427,9 @@ function Post() {
             <div className="flex-shrink-0">
               <button
                 type="submit"
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#FD2D01] border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
               >
-                Post
+                Poster
               </button>
             </div>
           </div>
@@ -454,133 +439,6 @@ function Post() {
     </>
   )
 }
-
-// function Post() {
-//   const [selected, setSelected] = useState(moods[5])
-//   return (
-//     <div className="flex items-start w-11/12 mt-4 space-x-4">
-//       <div className="flex-shrink-0">
-//       <img src="../img/icon-left-font.png" alt="logo" />
-//       </div>
-//       <div className="flex-1 min-w-0">
-//         <form action="#" className="relative">
-//           <div className="overflow-hidden border border-gray-300 rounded-lg shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
-//             <label htmlFor="comment" className="sr-only">
-//               Quoi de neuf ?
-//             </label>
-//             <textarea
-//               rows={3}
-//               name="comment"
-//               id="comment"
-//               className="block w-full py-3 border-0 resize-none focus:ring-0 sm:text-sm"
-//               placeholder="Quoi de neuf ?"
-//               defaultValue={''}
-//             />
-
-//             <div className="py-2" aria-hidden="true">
-//               <div className="py-px">
-//                 <div className="h-9" />
-//               </div>
-//             </div>
-//           </div>
-
-//           <div className="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
-//             <div className="flex items-center space-x-5">
-//               <div className="flex items-center">
-//                 <button
-//                   type="button"
-//                   className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-//                 >
-//                   <PaperClipIcon className="w-5 h-5" aria-hidden="true" />
-//                   <span className="sr-only">Attach a file</span>
-//                 </button>
-//               </div>
-//               <div className="flex items-center">
-//                 <Listbox value={selected} onChange={setSelected}>
-//                   {({ open }) => (
-//                     <>
-//                       <Listbox.Label className="sr-only"> Ton mood </Listbox.Label>
-//                       <div className="relative">
-//                         <Listbox.Button className="relative -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500">
-//                           <span className="flex items-center justify-center">
-//                             {selected.value === null ? (
-//                               <span>
-//                                 <FaceSmileIcon className="flex-shrink-0 w-5 h-5" aria-hidden="true" />
-//                                 <span className="sr-only"> Ajoute ton mood </span>
-//                               </span>
-//                             ) : (
-//                               <span>
-//                                 <span
-//                                   className={classNames(
-//                                     selected.bgColor,
-//                                     'flex h-8 w-8 items-center justify-center rounded-full'
-//                                   )}
-//                                 >
-//                                   <selected.icon className="flex-shrink-0 w-5 h-5 text-white" aria-hidden="true" />
-//                                 </span>
-//                                 <span className="sr-only">{selected.name}</span>
-//                               </span>
-//                             )}
-//                           </span>
-//                         </Listbox.Button>
-
-//                         <Transition
-//                           show={open}
-//                           as={Fragment}
-//                           leave="transition ease-in duration-100"
-//                           leaveFrom="opacity-100"
-//                           leaveTo="opacity-0"
-//                         >
-//                           <Listbox.Options className="absolute z-10 py-3 mt-1 -ml-6 text-base bg-white rounded-lg shadow w-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm">
-//                             {moods.map((mood) => (
-//                               <Listbox.Option
-//                                 key={mood.value}
-//                                 className={({ active }) =>
-//                                   classNames(
-//                                     active ? 'bg-gray-100' : 'bg-white',
-//                                     'relative cursor-default select-none py-2 px-3'
-//                                   )
-//                                 }
-//                                 value={mood}
-//                               >
-//                                 <div className="flex items-center">
-//                                   <div
-//                                     className={classNames(
-//                                       mood.bgColor,
-//                                       'w-8 h-8 rounded-full flex items-center justify-center'
-//                                     )}
-//                                   >
-//                                     <mood.icon
-//                                       className={classNames(mood.iconColor, 'flex-shrink-0 h-5 w-5')}
-//                                       aria-hidden="true"
-//                                     />
-//                                   </div>
-//                                   <span className="block ml-3 font-medium truncate">{mood.name}</span>
-//                                 </div>
-//                               </Listbox.Option>
-//                             ))}
-//                           </Listbox.Options>
-//                         </Transition>
-//                       </div>
-//                     </>
-//                   )}
-//                 </Listbox>
-//               </div>
-//             </div>
-//             <div className="flex-shrink-0">
-//               <button
-//                 type="submit"
-//                 className="inline-flex items-center rounded-md border border-transparent bg-[#FD2D01] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-//               >
-//                 Poster
-//               </button>
-//             </div>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   )
-// }
 
 function Profile() {
   return (
@@ -888,7 +746,7 @@ function Error() {
         className="min-h-full bg-top bg-cover sm:bg-top"
         style={{
           backgroundImage:
-            'url("./img/pageerror.jpg")',
+            'url("../img/oops.jpg")',
         }}
       >
         <div className="px-4 py-16 mx-auto text-center max-w-7xl sm:px-6 sm:py-24 lg:px-8 lg:py-48">
