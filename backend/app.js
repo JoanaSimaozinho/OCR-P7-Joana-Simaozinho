@@ -28,7 +28,7 @@ dotenv.config();
 
 // Connection de l'API à la base de données
 mongoose
-  .connect('mongodb+srv://joana:projet7@cluster0.nug9kdk.mongodb.net/?retryWrites=true&w=majority',
+  .connect('mongodb+srv://Joana:projet7@projet7.6rtco3b.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))

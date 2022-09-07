@@ -4,14 +4,16 @@ import "./App.css";
 import { Disclosure, Menu } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Fragment, useState } from 'react'
+import { FaceSmileIcon as FaceSmileIconOutline, PaperClipIcon } from '@heroicons/react/24/outline'
+import { Listbox, Transition } from '@headlessui/react'
 import {
   FaceFrownIcon,
   FaceSmileIcon,
   FireIcon,
   HeartIcon,
-  PaperClipIcon,
 } from '@heroicons/react/20/solid'
-import { Listbox, Transition } from '@headlessui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 const moods = [
   { name: 'Exité(e)', value: 'Exité(e)', icon: FireIcon, iconColor: 'text-white', bgColor: 'bg-red-500' },
@@ -25,8 +27,6 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-
-
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
@@ -36,7 +36,7 @@ const user = {
 const navigation = [
   { name: 'Profil', href: 'profile' }, 
   { name: 'Réglages', href: 'error' },
-  { name: 'Déconnexion', href: 'logout' },
+  { name: 'Déconnexion', href: '/' },
 ]
 
 function App() {
@@ -48,7 +48,7 @@ function App() {
         {/* route signup */}
         <Route path="signup" element={<Signup />} /> 
         {/* Route Accueil */}
-        <Route path="accueil" element={<Accueil />} />
+        {/* <Route path="accueil" element={<Accueil />} /> */}
         {/* Route Post */}
         <Route path="post" element={<Post />} /> 
         {/* route Profile */}
@@ -56,7 +56,7 @@ function App() {
          {/*Route Error page */}
         <Route path="error" element={<Error />} /> 
         {/* Route logout */}
-        <Route path="logout" element={<Logout />} /> 
+        {/* <Route path="logout" element={<Logout />} />  */}
       </Routes>
     </div>
   );
@@ -223,17 +223,18 @@ function Signup() {
   );
 }
 
-function Logout() {
-  return (
-    <div>
-      <nav>
-        <Link className="font-medium text-[#FD2D01] hover:text-red-500" to="/">Déconnexion</Link>
-      </nav> 
-    </div>
-  )
-}
+// function Logout() {
+//   return (
+//     <div>
+//       <nav>
+//         <Link className="font-medium text-[#FD2D01] hover:text-red-500" to="/">Déconnexion</Link>
+//       </nav> 
+//     </div>
+//   )
+// }
 
-function Accueil() {
+function Post() {
+  const [selected, setSelected] = useState(moods[5])
   return (
     <>
       <div className="min-h-full">
@@ -337,14 +338,7 @@ function Accueil() {
           )}
         </Disclosure>
       </div>
-    </>
-  )
-}
-
-function Post() {
-  const [selected, setSelected] = useState(moods[5])
-  return (
-    <div className="flex items-start w-11/12 mt-4 space-x-4">
+      <div className="flex items-start space-x-4">
       <div className="flex-shrink-0">
         <img
           className="inline-block w-10 h-10 rounded-full"
@@ -353,50 +347,43 @@ function Post() {
         />
       </div>
       <div className="flex-1 min-w-0">
-        <form action="#" className="relative">
-          <div className="overflow-hidden border border-gray-300 rounded-lg shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+        <form action="#">
+          <div className="border-b border-gray-200 focus-within:border-indigo-600">
             <label htmlFor="comment" className="sr-only">
-              Quoi de neuf ?
+              Add your comment
             </label>
             <textarea
               rows={3}
               name="comment"
               id="comment"
-              className="block w-full py-3 border-0 resize-none focus:ring-0 sm:text-sm"
-              placeholder="Quoi de neuf ?"
+              className="block w-full p-0 pb-2 border-0 border-b border-transparent resize-none focus:border-indigo-600 focus:ring-0 sm:text-sm"
+              placeholder="Add your comment..."
               defaultValue={''}
             />
-
-            <div className="py-2" aria-hidden="true">
-              <div className="py-px">
-                <div className="h-9" />
-              </div>
-            </div>
           </div>
-
-          <div className="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+          <div className="flex justify-between pt-2">
             <div className="flex items-center space-x-5">
-              <div className="flex items-center">
+              <div className="flow-root">
                 <button
                   type="button"
-                  className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+                  className="inline-flex items-center justify-center w-10 h-10 -m-2 text-gray-400 rounded-full hover:text-gray-500"
                 >
-                  <PaperClipIcon className="w-5 h-5" aria-hidden="true" />
+                  <FontAwesomeIcon icon="fas fa-paperclip" />                  
                   <span className="sr-only">Attach a file</span>
                 </button>
               </div>
-              <div className="flex items-center">
+              <div className="flow-root">
                 <Listbox value={selected} onChange={setSelected}>
                   {({ open }) => (
                     <>
-                      <Listbox.Label className="sr-only"> Ton mood </Listbox.Label>
+                      <Listbox.Label className="sr-only"> Your mood </Listbox.Label>
                       <div className="relative">
-                        <Listbox.Button className="relative -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500">
+                        <Listbox.Button className="relative inline-flex items-center justify-center w-10 h-10 -m-2 text-gray-400 rounded-full hover:text-gray-500">
                           <span className="flex items-center justify-center">
                             {selected.value === null ? (
                               <span>
-                                <FaceSmileIcon className="flex-shrink-0 w-5 h-5" aria-hidden="true" />
-                                <span className="sr-only"> Ajoute ton mood </span>
+                                <FaceSmileIconOutline className="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+                                <span className="sr-only"> Add your mood </span>
                               </span>
                             ) : (
                               <span>
@@ -421,7 +408,7 @@ function Post() {
                           leaveFrom="opacity-100"
                           leaveTo="opacity-0"
                         >
-                          <Listbox.Options className="absolute z-10 py-3 mt-1 -ml-6 text-base bg-white rounded-lg shadow w-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm">
+                          <Listbox.Options className="absolute z-10 py-3 -ml-6 text-base bg-white rounded-lg shadow w-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm">
                             {moods.map((mood) => (
                               <Listbox.Option
                                 key={mood.value}
@@ -460,17 +447,145 @@ function Post() {
             <div className="flex-shrink-0">
               <button
                 type="submit"
-                className="inline-flex items-center rounded-md border border-transparent bg-[#FD2D01] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                Poster
+                Post
               </button>
             </div>
           </div>
         </form>
       </div>
     </div>
+    </>
   )
 }
+
+// function Post() {
+//   const [selected, setSelected] = useState(moods[5])
+//   return (
+//     <div className="flex items-start w-11/12 mt-4 space-x-4">
+//       <div className="flex-shrink-0">
+//       <img src="../img/icon-left-font.png" alt="logo" />
+//       </div>
+//       <div className="flex-1 min-w-0">
+//         <form action="#" className="relative">
+//           <div className="overflow-hidden border border-gray-300 rounded-lg shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+//             <label htmlFor="comment" className="sr-only">
+//               Quoi de neuf ?
+//             </label>
+//             <textarea
+//               rows={3}
+//               name="comment"
+//               id="comment"
+//               className="block w-full py-3 border-0 resize-none focus:ring-0 sm:text-sm"
+//               placeholder="Quoi de neuf ?"
+//               defaultValue={''}
+//             />
+
+//             <div className="py-2" aria-hidden="true">
+//               <div className="py-px">
+//                 <div className="h-9" />
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+//             <div className="flex items-center space-x-5">
+//               <div className="flex items-center">
+//                 <button
+//                   type="button"
+//                   className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+//                 >
+//                   <PaperClipIcon className="w-5 h-5" aria-hidden="true" />
+//                   <span className="sr-only">Attach a file</span>
+//                 </button>
+//               </div>
+//               <div className="flex items-center">
+//                 <Listbox value={selected} onChange={setSelected}>
+//                   {({ open }) => (
+//                     <>
+//                       <Listbox.Label className="sr-only"> Ton mood </Listbox.Label>
+//                       <div className="relative">
+//                         <Listbox.Button className="relative -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500">
+//                           <span className="flex items-center justify-center">
+//                             {selected.value === null ? (
+//                               <span>
+//                                 <FaceSmileIcon className="flex-shrink-0 w-5 h-5" aria-hidden="true" />
+//                                 <span className="sr-only"> Ajoute ton mood </span>
+//                               </span>
+//                             ) : (
+//                               <span>
+//                                 <span
+//                                   className={classNames(
+//                                     selected.bgColor,
+//                                     'flex h-8 w-8 items-center justify-center rounded-full'
+//                                   )}
+//                                 >
+//                                   <selected.icon className="flex-shrink-0 w-5 h-5 text-white" aria-hidden="true" />
+//                                 </span>
+//                                 <span className="sr-only">{selected.name}</span>
+//                               </span>
+//                             )}
+//                           </span>
+//                         </Listbox.Button>
+
+//                         <Transition
+//                           show={open}
+//                           as={Fragment}
+//                           leave="transition ease-in duration-100"
+//                           leaveFrom="opacity-100"
+//                           leaveTo="opacity-0"
+//                         >
+//                           <Listbox.Options className="absolute z-10 py-3 mt-1 -ml-6 text-base bg-white rounded-lg shadow w-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm">
+//                             {moods.map((mood) => (
+//                               <Listbox.Option
+//                                 key={mood.value}
+//                                 className={({ active }) =>
+//                                   classNames(
+//                                     active ? 'bg-gray-100' : 'bg-white',
+//                                     'relative cursor-default select-none py-2 px-3'
+//                                   )
+//                                 }
+//                                 value={mood}
+//                               >
+//                                 <div className="flex items-center">
+//                                   <div
+//                                     className={classNames(
+//                                       mood.bgColor,
+//                                       'w-8 h-8 rounded-full flex items-center justify-center'
+//                                     )}
+//                                   >
+//                                     <mood.icon
+//                                       className={classNames(mood.iconColor, 'flex-shrink-0 h-5 w-5')}
+//                                       aria-hidden="true"
+//                                     />
+//                                   </div>
+//                                   <span className="block ml-3 font-medium truncate">{mood.name}</span>
+//                                 </div>
+//                               </Listbox.Option>
+//                             ))}
+//                           </Listbox.Options>
+//                         </Transition>
+//                       </div>
+//                     </>
+//                   )}
+//                 </Listbox>
+//               </div>
+//             </div>
+//             <div className="flex-shrink-0">
+//               <button
+//                 type="submit"
+//                 className="inline-flex items-center rounded-md border border-transparent bg-[#FD2D01] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+//               >
+//                 Poster
+//               </button>
+//             </div>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   )
+// }
 
 function Profile() {
   return (
@@ -778,22 +893,19 @@ function Error() {
         className="min-h-full bg-top bg-cover sm:bg-top"
         style={{
           backgroundImage:
-            'url("../img/pageerror.jpg")',
+            'url("./img/pageerror.jpg")',
         }}
       >
         <div className="px-4 py-16 mx-auto text-center max-w-7xl sm:px-6 sm:py-24 lg:px-8 lg:py-48">
-          <p className="text-base font-semibold text-black text-opacity-50">404</p>
-          <h1 className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">Uh oh! Je crois que vous êtes perdu.</h1>
-          <p className="mt-2 text-lg font-medium text-black text-opacity-50">
-          Il semble que la page que vous recherchez n'existe pas.
+          <p className="text-4xl font-bold text-[#FD2D01] text-opacity-100">404</p>
+          <h1 className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">Oh oh ! Je pense que tu es perdu.</h1>
+          <p className="mt-2 text-lg font-bold text-white text-opacity-100">
+            Il semble que la page que vous recherchez n'existe pas.          
           </p>
           <div className="mt-6">
-            <Link
-              href="accueil"
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-black text-opacity-75 bg-white bg-opacity-75 border border-transparent rounded-md sm:bg-opacity-25 sm:hover:bg-opacity-50"
-            >
-              Retour à l'Accueil
-            </Link>
+            <nav>
+              <Link className="inline-flex items-center rounded-md border border-transparent px-4 py-2 text-sm shadow-sm hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 font-bold bg-slate-50 text-[#FD2D01]" to="/post">Retour à l'accueil</Link>
+            </nav>
           </div>
         </div>
       </main>
