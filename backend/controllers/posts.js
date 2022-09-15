@@ -4,7 +4,7 @@ const fs = require("fs");
 // création d'un post par un utilisateur
 exports.createPost = (req, res, next) => {
   const postObject = JSON.parse(req.body.post);
-  delete postObject._id;
+  delete postObject.id;
   const post = new Post({
     ...postObject,
     likes: 0,
@@ -24,7 +24,7 @@ exports.createPost = (req, res, next) => {
 //Permet de trouver le Post unique ayant le même ID que le paramètre de la requête
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
-    _id: req.params.id,
+    id: req.params.id,
   })
   // Le Post est ensuite retournée dans une Promise et envoyée au front-end
     .then((post) => {
@@ -40,7 +40,7 @@ exports.getOnePost = (req, res, next) => {
 
 // Permet a l'utilisateur de mettre a jour ou de modifier un post qu'il a crée
 exports.modifyPost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id }).then((post) => {
+  Post.findOne({ id: req.params.id }).then((post) => {
     const filename = post.imageUrl.split("/images/")[1];
     fs.unlink(`images/${filename}`, () => {
       const postObject = req.file
@@ -54,8 +54,8 @@ exports.modifyPost = (req, res, next) => {
         // updateOne permet de mettre a jour le Post qui correspond à l'objet passé comme premier argument
         // Le paramètre id passé dans la demande est utilisé puis il est remplacé par le Post passée comme second argument
       Post.updateOne(
-        { _id: req.params.id },
-        { ...postObject, _id: req.params.id }
+        { id: req.params.id },
+        { ...postObject, id: req.params.id }
       )
         .then(() => res.status(200).json({ message: "Post modifiée !" }))
         .catch((error) => res.status(400).json({ error }));
@@ -65,11 +65,11 @@ exports.modifyPost = (req, res, next) => {
 
 // Permet de supprimer (on lui passe un objet correspondant au document à supprimer puis une réponse de réussite ou d'échec est envoyée au front-end)
 exports.deletePost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id })
+  Post.findOne({ id: req.params.id })
     .then((post) => {
       const filename = post.imageUrl.split("/images/")[1];
       fs.unlink(`images/${filename}`, () => {
-        Post.deleteOne({ _id: req.params.id })
+        Post.deleteOne({ id: req.params.id })
           .then(() => res.status(200).json({ message: "Post supprimé !" }))
           .catch((error) => res.status(400).json({ error }));
       });
@@ -99,7 +99,7 @@ exports.likePost = (req, res, next) => {
   // pousser l'userId vers le tableau usersLiked ; incrémente les likes
   if (like === 1) {
     Post.updateOne(
-      { _id: postId },
+      { id: postId },
       {
         $inc: { likes: like },
         $push: { usersLiked: userId },
@@ -113,7 +113,7 @@ exports.likePost = (req, res, next) => {
   // pousse l'userId vers le tableau usersLiked ; un like de moins.
   else if (like === -1) {
     Post.updateOne(
-      { _id: postId },
+      { id: postId },
       {
         $inc: { dislikes: -1 * like },
         $push: { usersDisliked: userId },
@@ -125,11 +125,11 @@ exports.likePost = (req, res, next) => {
   // 3. L'utilisateur change d'avis
   // 3.1. l'utilisateur reprend son like :
   else {
-    Post.findOne({ _id: postId })
+    Post.findOne({ id: postId })
       .then((post) => {
         if (post.usersLiked.includes(userId)) {
           Post.updateOne(
-            { _id: postId },
+            { id: postId },
             { $pull: { usersLiked: userId }, $inc: { likes: -1 } }
           )
             .then((post) => {
@@ -139,7 +139,7 @@ exports.likePost = (req, res, next) => {
           //3.2 l'utilisateur change d'avis sur son dislike
         } else if (post.usersDisliked.includes(userId)) {
           Post.updateOne(
-            { _id: postId },
+            { id: postId },
             {
               $pull: { usersDisliked: userId },
               $inc: { dislikes: -1 },

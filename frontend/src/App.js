@@ -38,6 +38,14 @@ const navigation = [
   { name: 'Déconnexion', href: '/' },
 ]
 
+function handleSubmit(event) {
+  console.log("handleSubmit");
+  event.preventDefault()
+  // Todo
+  // Appeler server pour creer nouvel user
+  // Avec token loger user
+}
+
 function App() {
   return (
     <div className="App">
@@ -53,6 +61,7 @@ function App() {
          {/*Route Error page */}
         <Route path="error" element={<Error />} /> 
       </Routes>
+      
     </div>
   );
 }
@@ -75,7 +84,7 @@ function Login() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Adresse E-mail
@@ -219,7 +228,7 @@ function Signup() {
 }
 
 function Post() {
-  const [selected, setSelected] = useState(moods[5])
+  const [selected, setSelected] = useState(moods[4])
   return (
     <>
       <div className="min-h-full">
@@ -322,7 +331,7 @@ function Post() {
       <div className="flex-shrink-0">
         <img
           className="inline-block w-10 h-10 rounded-full"
-          src="./img/pageerror.jpg"
+          src="img/errorpage.jpg"
           alt=""
         />
       </div>
