@@ -1,4 +1,6 @@
 import * as React from "react";
+import { render } from "../../backend/app";
+import ReactDOM  from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import { Disclosure, Menu } from '@headlessui/react'
@@ -39,31 +41,35 @@ const navigation = [
 ]
 
 function handleSubmit(event) {
-  console.log("handleSubmit");
-  event.preventDefault()
+  event.preventDefault();
+  fetch(`/api`)
+  .then(() => console.log('Connexion réussie !'))
+  .catch(() => console.log('Connexion échouée !'))
   // Todo
   // Appeler server pour creer nouvel user
   // Avec token loger user
 }
 
-function App() {
-  return (
-    <div className="App">
-      <Routes>
-        {/* Route login */}
-        <Route path="/" element={<Login />} />
-        {/* route signup */}
-        <Route path="signup" element={<Signup />} /> 
-        {/* Route Post */}
-        <Route path="post" element={<Post />} /> 
-        {/* route Profile */}
-        <Route path="profile" element={<Profile />} />
-         {/*Route Error page */}
-        <Route path="error" element={<Error />} /> 
-      </Routes>
-      
-    </div>
-  );
+export class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Routes>
+          {/* Route login */}
+          <Route path="/" element={<Login />} />
+          {/* route signup */}
+          <Route path="signup" element={<Signup />} /> 
+          {/* Route Post */}
+          <Route path="post" element={<Post />} /> 
+          {/* route Profile */}
+          <Route path="profile" element={<Profile />} />
+          {/*Route Error page */}
+          <Route path="error" element={<Error />} /> 
+        </Routes>
+        
+      </div>
+    );
+  }
 }
 
 
@@ -775,5 +781,5 @@ function Error() {
   )
 }
 
-
 export default App
+ReactDOM.render(<App />, document.getElementById('root'))
