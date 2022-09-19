@@ -1,6 +1,4 @@
 import * as React from "react";
-import { render } from "../../backend/app";
-import ReactDOM  from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import { Disclosure, Menu } from '@headlessui/react'
@@ -42,7 +40,7 @@ const navigation = [
 
 function handleSubmit(event) {
   event.preventDefault();
-  fetch(`/api`)
+  fetch(`../../backend`)
   .then(() => console.log('Connexion réussie !'))
   .catch(() => console.log('Connexion échouée !'))
   // Todo
@@ -50,26 +48,24 @@ function handleSubmit(event) {
   // Avec token loger user
 }
 
-export class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <Routes>
-          {/* Route login */}
-          <Route path="/" element={<Login />} />
-          {/* route signup */}
-          <Route path="signup" element={<Signup />} /> 
-          {/* Route Post */}
-          <Route path="post" element={<Post />} /> 
-          {/* route Profile */}
-          <Route path="profile" element={<Profile />} />
-          {/*Route Error page */}
-          <Route path="error" element={<Error />} /> 
-        </Routes>
-        
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <Routes>
+        {/* Route login */}
+        <Route path="/" element={<Login />} />
+        {/* route signup */}
+        <Route path="signup" element={<Signup />} /> 
+        {/* Route Post */}
+        <Route path="post" element={<Post />} /> 
+        {/* route Profile */}
+        <Route path="profile" element={<Profile />} />
+         {/*Route Error page */}
+        <Route path="error" element={<Error />} /> 
+      </Routes>
+      
+    </div>
+  );
 }
 
 
@@ -170,7 +166,7 @@ function Signup() {
   
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-              <form className="space-y-6" action="#" method="POST">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Adresse E-mail
@@ -781,5 +777,5 @@ function Error() {
   )
 }
 
+
 export default App
-ReactDOM.render(<App />, document.getElementById('root'))
