@@ -74,7 +74,7 @@ function Login() {
     <>
       <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <img src="../img/icon-left-font.png" alt="logo" />
+          <img src="../icon-left-font.png" alt="logo" />
           <h2 className="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900">Connectez-vous</h2>
           <p className="mt-2 text-sm text-center text-gray-600">
             Ou{' '}
@@ -154,7 +154,7 @@ function Signup() {
        <>
         <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <img src="../img/icon-left-font.png" alt="logo" />
+            <img src="../icon-left-font.png" alt="logo" />
             <h2 className="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900">Inscrivez-vous</h2>
             <p className="mt-2 text-sm text-center text-gray-600">
               Ou{' '}
@@ -241,7 +241,7 @@ function Post() {
                 <div className="flex justify-between h-16">
                   <div className="flex">
                     <div className="flex items-center flex-shrink-0">
-                      <img className='w-36' src="../img/icon-left-font.png" alt='logo' />
+                      <img className='w-36' src="../icon-left-font.png" alt='logo' />
                     </div>
                     <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                       {navigation.map((item) => (
