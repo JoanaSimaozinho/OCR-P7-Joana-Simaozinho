@@ -1,9 +1,8 @@
 import * as React from "react";
-import "./App.css";
 import { Link } from "react-router-dom";
 
-function handleSubmit(event) {
-  event.preventDefault();
+function handleSubmit(e) {
+  e.preventDefault();
   fetch(`../../backend`)
   .then(() => console.log('Connexion réussie !'))
   .catch(() => console.log('Connexion échouée !'))
