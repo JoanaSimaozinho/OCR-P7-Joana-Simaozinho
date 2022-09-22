@@ -1,38 +1,18 @@
-import React, { useState } from "react";
-import axios from "axios";
+import * as React from "react";
+import "./App.css";
 import { Link } from "react-router-dom";
 
+function handleSubmit(event) {
+  event.preventDefault();
+  fetch(`../../backend`)
+  .then(() => console.log('Connexion réussie !'))
+  .catch(() => console.log('Connexion échouée !'))
+  // Todo
+  // Appeler server pour creer nouvel user
+  // Avec token loger user
+}
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = (event) => {
-    event.preventDefault();
-    const emailError = document.querySelector(".email.error");
-    const passwordError = document.querySelector(".password.error");
-
-    axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/login`,
-      withCredentials: true,
-      data: {
-        email,
-        password,
-      },
-    })
-      .then((res) => {
-        if (res.data.errors) {
-          emailError.innerHTML = res.data.errors.email;
-          passwordError.innerHTML = res.data.erros.password;
-        } else {
-          window.location = "/";
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+export default function Login() {
     return (
       <>
         <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
@@ -49,7 +29,7 @@ const Login = () => {
   
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-              <form className="space-y-6" action="" onSubmit={handleLogin} id="sign-up-form">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Adresse E-mail
@@ -59,8 +39,8 @@ const Login = () => {
                       id="email"
                       name="email"
                       type="email"
-                      onChange={(event) => setEmail(event.target.value)}
-                      value={email}
+                      autoComplete="email"
+                      required
                       className="block w-full appearance-none rounded-md border border-[#FD2D01] px-3 py-2 placeholder-[#FD2D01] shadow-sm focus:border-[#FD2D01] focus:outline-none focus:ring-[#FD2D01] sm:text-sm"
                     />
                   </div>
@@ -75,8 +55,8 @@ const Login = () => {
                       id="password"
                       name="password"
                       type="password"
-                      onChange={(event) => setPassword(event.target.value)}
-                      value={password}
+                      autoComplete="current-password"
+                      required
                       className="block w-full appearance-none rounded-md border border-[#FD2D01] px-3 py-2 placeholder-[#FD2D01] shadow-sm focus:border-[#FD2D01] focus:outline-none focus:ring-[#FD2D01] sm:text-sm"
                     />
                   </div>
@@ -111,6 +91,4 @@ const Login = () => {
       </>
     );
   }
-
   
-export default Login
