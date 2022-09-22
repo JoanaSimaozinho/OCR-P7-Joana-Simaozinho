@@ -1,10 +1,9 @@
 import * as React from "react";
-import "./App.css";
 import { Link } from "react-router-dom";
 
 function handleSubmit(event) {
   event.preventDefault();
-  fetch(`../../backend`)
+  fetch(`${process.env.REACT_APP_API_URL}signup`)
   .then(() => console.log('Connexion réussie !'))
   .catch(() => console.log('Connexion échouée !'))
   // Todo
@@ -19,12 +18,12 @@ export default function Signup() {
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
               <img src="../icon-left-font.png" alt="logo" />
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900">Inscrivez-vous</h2>
-              <p className="mt-2 text-sm text-center text-gray-600">
+              <div className="mt-2 text-sm text-center text-gray-600">
                 Ou{' '}
                 <nav>
                   <Link className="font-medium text-[#FD2D01] hover:text-red-500" to="/">Connectez-vous</Link>
                 </nav>
-              </p>
+              </div>
             </div>
     
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

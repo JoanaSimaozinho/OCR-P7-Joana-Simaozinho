@@ -8,6 +8,13 @@
 # testing
 /coverage
 
+# Node
+/backend/node_modules
+/frontend/node_modules
+/backend/images
+npm-debug.log
+yarn-error.log
+
 # production
 /build
 
