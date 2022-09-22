@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 function handleSubmit(event) {
   event.preventDefault();
-  fetch(`${process.env.REACT_APP_API_URL}login`)
+  fetch(`login`)
   .then(() => {})
-  .catch(() => console.log('Connexion échouée !'))
+  .catch(() => {})
   // Todo
   // Appeler server pour creer nouvel user
   // Avec token loger user

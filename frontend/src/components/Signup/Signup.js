@@ -1,17 +1,38 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react"
 
-function handleSubmit(event) {
-  event.preventDefault();
-  fetch(`${process.env.REACT_APP_API_URL}signup`)
-  .then(() => console.log('Connexion réussie !'))
-  .catch(() => console.log('Connexion échouée !'))
-  // Todo
-  // Appeler server pour creer nouvel user
-  // Avec token loger user
-}
+
+
+
 
 export default function Signup() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:3000", {
+        method: "POST",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+      }),
+    });
+    const resJson = await res.json();
+        if (res.status === 200) {
+          setEmail("");
+          setPassword("");
+          setMessage("User created successfully");
+        } else {
+          setMessage("Some error occured");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+  }
     return (
          <>
           <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
@@ -38,8 +59,9 @@ export default function Signup() {
                         id="email"
                         name="email"
                         type="email"
-                        autoComplete="email"
-                        required
+                        value={email}
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
                         className="block w-full appearance-none rounded-md border border-[#FD2D01] px-3 py-2 placeholder-[#FD2D01] shadow-sm focus:border-[#FD2D01] focus:outline-none focus:ring-[#FD2D01] sm:text-sm"
                       />
                     </div>
@@ -54,8 +76,9 @@ export default function Signup() {
                         id="password"
                         name="password"
                         type="password"
-                        autoComplete="current-password"
-                        required
+                        value={password}
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
                         className="block w-full appearance-none rounded-md border border-[#FD2D01] px-3 py-2 placeholder-[#FD2D01] shadow-sm focus:border-[#FD2D01] focus:outline-none focus:ring-[#FD2D01] sm:text-sm"
                       />
                     </div>
@@ -83,6 +106,7 @@ export default function Signup() {
                       S'inscrire
                     </button>
                   </div>
+                  <div className="message">{message ? <p>{message}</p> : null}</div>
                 </form>
               </div>
             </div>

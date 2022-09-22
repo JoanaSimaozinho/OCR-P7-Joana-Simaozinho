@@ -1,11 +1,7 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Login from "./components/Login/Login"
-import Signup from "./components/Signup/Signup"
-import Post from "./components/Post/Post"
-import Profile from "./components/Profile/Profile"
-import Error from "./components/Error/Error"
+import { Error, Login, Post, Profile, Signup } from "./components"
 
 function App() {
   return (
