@@ -8,13 +8,14 @@ require('dotenv').config();
 
 // User signup controller
 exports.signup = (req, res, next) => {
-  const isValidateEmail = validator.validate(req.body.email);
+  let isValidateEmail = validator.validate(req.body.email);
   if (!isValidateEmail) {
     res.writeHead(400, 'Email incorrect !"}', {
       "content-type": "application/json",
     });
     res.end("Le format de l'email est incorrect.");
   } else {
+    console.log(req.body);
     // Fonction asynchrone qui renvoie une Promise dans laquelle on reçois le hash généré
     bcrypt
       .hash(req.body.password, 10)
@@ -35,6 +36,7 @@ exports.signup = (req, res, next) => {
 
 // Modèle mongoose utilisé pour vérifier que l'e-mail entré par l'utilisateur correspond à un utilisateur existant
 exports.login = (req, res, next) => {
+  console.log(req.body.email);
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {

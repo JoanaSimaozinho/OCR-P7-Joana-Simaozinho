@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 // middleware auth
 module.exports = (req, res, next) => {
   try {
+    console.log("req.body");
+    console.log(req.body);
     // Le token est extait du header Authorization de la requête entrante. 
     // La fonction split est utilisée pour tout récupérer après l'espace dans le header. 
     const token = req.headers.authorization.split(" ")[1];

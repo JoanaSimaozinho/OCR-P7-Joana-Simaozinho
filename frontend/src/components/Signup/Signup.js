@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react"
 
 
-
-
-
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,22 +10,23 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(email);
+    console.log(password);
     try {
-      const res = await fetch("http://localhost:3000", {
+      fetch("http://localhost:4000/api/auth/signup", {
         method: "POST",
-          body: JSON.stringify({
-            email: email,
-            password: password,
-      }),
-    });
-    const resJson = await res.json();
-        if (res.status === 200) {
+        body: JSON.stringify({email:email, password:password}),
+          headers: {'Accept':'application/json','Content-Type':'application/json'}
+    }).then((res)=> res.json())
+      .then((resJson)=>{
+        if (resJson.status === 200) {
           setEmail("");
           setPassword("");
           setMessage("User created successfully");
         } else {
+          console.log(resJson);
           setMessage("Some error occured");
-        }
+        }})
       } catch (err) {
         console.log(err);
       }

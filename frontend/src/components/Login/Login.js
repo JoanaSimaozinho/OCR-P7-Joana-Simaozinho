@@ -1,17 +1,41 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-
-function handleSubmit(event) {
-  event.preventDefault();
-  fetch(`login`)
-  .then(() => {})
-  .catch(() => {})
-  // Todo
-  // Appeler server pour creer nouvel user
-  // Avec token loger user
-}
+import { useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(email);
+    console.log(password);
+    try {
+      fetch("http://localhost:4000/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({email:email, password:password}),
+          headers: {'Accept':'application/json','Content-Type':'application/json'}
+    }).then((res)=> {
+      console.log(res.status);
+      if (res.status === 200) {
+        return res.json();
+      } else {
+          setMessage("Some error occured");
+      }
+      })
+      .then((resJson)=>{
+          setEmail("");
+          setPassword("");
+          setMessage("User login successfully");
+          console.log("redirect");
+          window.location = "/post";
+       })
+       .catch((e)=>console.log(e))
+      } catch (err) {
+        console.log(err);
+      }
+  }
     return (
       <>
         <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
@@ -40,6 +64,7 @@ export default function Login() {
                       type="email"
                       autoComplete="email"
                       required
+                      onChange={(e) => setEmail(e.target.value)}
                       className="block w-full appearance-none rounded-md border border-[#FD2D01] px-3 py-2 placeholder-[#FD2D01] shadow-sm focus:border-[#FD2D01] focus:outline-none focus:ring-[#FD2D01] sm:text-sm"
                     />
                   </div>
@@ -56,6 +81,7 @@ export default function Login() {
                       type="password"
                       autoComplete="current-password"
                       required
+                      onChange={(e) => setPassword(e.target.value)}
                       className="block w-full appearance-none rounded-md border border-[#FD2D01] px-3 py-2 placeholder-[#FD2D01] shadow-sm focus:border-[#FD2D01] focus:outline-none focus:ring-[#FD2D01] sm:text-sm"
                     />
                   </div>
