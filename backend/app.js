@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const post = require("./models/post");
 const app = express();
 const postsRoutes = require("./routes/posts");
+const postsComment = require("./routes/comments");
 const userRoutes = require("./routes/user");
+const userComment = require("./routes/comments");
 const path = require("path");
 const dotenv = require("dotenv");
 
@@ -38,6 +40,9 @@ app.use(express.json());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/posts", postsRoutes);
+app.use("/api/comment", postsComment)
 app.use("/api/auth", userRoutes);
+app.use("/api/comment", userComment);
+
 
 module.exports = app;

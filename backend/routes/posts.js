@@ -15,4 +15,4 @@ router.delete("/:id", auth, postsCtrl.deletePost);
 // route pour les likes
 router.post("/:id/like", auth, postsCtrl.likePost);
 
-module.exports = router;
+module.exports = router

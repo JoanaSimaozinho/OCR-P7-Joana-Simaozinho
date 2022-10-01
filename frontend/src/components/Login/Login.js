@@ -40,7 +40,7 @@ export default function Login() {
       <>
         <div className="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <img src="../icon-left-font.png" alt="logo" />
+            <img src="../img/icon-left-font.png" alt="logo" />
             <h2 className="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900">Connectez-vous</h2>
             <div className="mt-2 text-sm text-center text-gray-600">
               Ou{' '}
@@ -109,6 +109,7 @@ export default function Login() {
                     Se connecter
                   </button>
                 </div>
+                <div className="message">{message ? <p>{message}</p> : null}</div>
               </form>
             </div>
           </div>

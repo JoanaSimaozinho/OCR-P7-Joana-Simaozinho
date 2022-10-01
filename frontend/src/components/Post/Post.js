@@ -39,6 +39,43 @@ const navigation = [
 
 export default function Post() {
     const [selected, setSelected] = useState(moods[4])
+
+    const [email, setEmail] = useState("");
+    const [post, setPost] = useState("");
+    const [message, setMessage] = useState("");
+    const [comment, setComment] = useState("")
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      console.log(email);
+      console.log(post);
+      console.log(comment);
+      try {
+        fetch("http://localhost:4000/api/auth/post", {
+          method: "POST",
+          body: JSON.stringify({email:email, post:post}),
+            headers: {'Accept':'application/json','Content-Type':'application/json'}
+      }).then((res)=> {
+        console.log(res.status);
+        if (res.status === 200) {
+          return res.json();
+        } else {
+            setMessage("Some error occured");
+        }
+        })
+        .then((resJson)=>{
+            setEmail("");
+            setPost("");
+            setComment("");
+            setMessage("Posted successfully");
+            console.log("redirect");
+            window.location = "/post";
+        })
+        .catch((e)=>console.log(e))
+        } catch (err) {
+          console.log(err);
+        }
+    }
     return (
       <>
         <div className="min-h-full">
@@ -49,7 +86,7 @@ export default function Post() {
                   <div className="flex justify-between h-16">
                     <div className="flex">
                       <div className="flex items-center flex-shrink-0">
-                        <img className='w-36' src="../icon-left-font.png" alt='logo' />
+                        <img className='w-36' src="../img/icon-left-font.png" alt='logo' />
                       </div>
                       <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                         {navigation.map((item) => (
@@ -146,7 +183,7 @@ export default function Post() {
           />
         </div>
         <div className="flex-1 min-w-0">
-          <form action="#">
+          <form action="#" onChange={handleSubmit}>
             <div className="border-b border-gray-200 focus-within:border-red-600">
               <label htmlFor="comment" className="sr-only">
                 Quoi de neuf ?
@@ -155,6 +192,7 @@ export default function Post() {
                 rows={3}
                 name="comment"
                 id="comment"
+                onChange={(e) => setComment(e.target.value)}
                 className="block w-full p-0 pb-2 border-0 border-b border-transparent resize-none focus:border-indigo-600 focus:ring-0 sm:text-sm"
                 placeholder="Quoi de neuf ?"
                 defaultValue={''}
@@ -245,12 +283,13 @@ export default function Post() {
               </div>
               <div className="flex-shrink-0">
                 <button
-                  type="submit"
+                  type="submit" onChange={(e) => setPost(e.target.value)}
                   className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#FD2D01] border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
                   Poster
                 </button>
               </div>
+              <div className="message">{message ? <p>{message}</p> : null}</div>
             </div>
           </form>
         </div>
