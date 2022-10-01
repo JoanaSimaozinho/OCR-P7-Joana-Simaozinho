@@ -7,15 +7,27 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
+    
     try {
       fetch("http://localhost:4000/api/auth/login", {
         method: "POST",
         body: JSON.stringify({email:email, password:password}),
-          headers: {'Accept':'application/json','Content-Type':'application/json'}
+          headers: {
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+          }
     }).then((res)=> {
       console.log(res.status);
       if (res.status === 200) {
@@ -29,6 +41,8 @@ export default function Login() {
           setPassword("");
           setMessage("User login successfully");
           console.log("redirect");
+          setCookie("token", resJson.token, 1)
+          
           window.location = "/post";
        })
        .catch((e)=>console.log(e))

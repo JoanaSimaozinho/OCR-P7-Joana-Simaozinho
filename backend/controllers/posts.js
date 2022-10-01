@@ -3,22 +3,23 @@ const fs = require("fs");
 
 // création d'un post par un utilisateur
 exports.createPost = (req, res, next) => {
-  const postObject = JSON.parse(req.body.post);
-  delete postObject.id;
+  const postText = req.body.post;
   const post = new Post({
-    ...postObject,
-    likes: 0,
-    dislikes: 0,
-    usersDisliked: [],
-    usersLiked: [],
-    imageUrl: `${req.protocol}://${req.get("host")}/images/${
-      req.file.filename
-    }`,
+   content: postText,
+    //likes: 0,
+    //dislikes: 0,
+    //usersDisliked: [],
+    //usersLiked: [],
+    //imageUrl: `${req.protocol}://${req.get("host")}/images/${
+      //req.file.filename
+    //}`,
   });
+debugger
   post
     .save()
     .then(() => res.status(201).json({ message: "Post enregistré !" }))
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => res.status(400)
+    .json({ error }));
 };
 
 //Permet de trouver le Post unique ayant le même ID que le paramètre de la requête

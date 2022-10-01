@@ -45,19 +45,41 @@ export default function Post() {
     const [message, setMessage] = useState("");
     const [comment, setComment] = useState("")
 
+
+    function getCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      }
+      return null;
+  }
+  
     const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log(email);
       console.log(post);
-      console.log(comment);
+      debugger
+      const token = getCookie('token');
+      if (!token) {
+        alert("Vous n'êtes pas authentifié");
+        return false;
+      }
+
       try {
-        fetch("http://localhost:4000/api/auth/post", {
+        fetch("http://localhost:4000/api/posts", {
           method: "POST",
-          body: JSON.stringify({email:email, post:post}),
-            headers: {'Accept':'application/json','Content-Type':'application/json'}
+          body: JSON.stringify({post}),
+            headers: {
+              'Accept':'application/json',
+              'Content-Type':'application/json',
+              'Authorization':'Bearer ' + token
+            }
       }).then((res)=> {
         console.log(res.status);
-        if (res.status === 200) {
+        if (res.status === 201) {
+          debugger
           return res.json();
         } else {
             setMessage("Some error occured");
@@ -68,8 +90,7 @@ export default function Post() {
             setPost("");
             setComment("");
             setMessage("Posted successfully");
-            console.log("redirect");
-            window.location = "/post";
+            
         })
         .catch((e)=>console.log(e))
         } catch (err) {
@@ -183,7 +204,7 @@ export default function Post() {
           />
         </div>
         <div className="flex-1 min-w-0">
-          <form action="#" onChange={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="border-b border-gray-200 focus-within:border-red-600">
               <label htmlFor="comment" className="sr-only">
                 Quoi de neuf ?
@@ -192,7 +213,7 @@ export default function Post() {
                 rows={3}
                 name="comment"
                 id="comment"
-                onChange={(e) => setComment(e.target.value)}
+                onChange={(e) => setPost(e.target.value)}
                 className="block w-full p-0 pb-2 border-0 border-b border-transparent resize-none focus:border-indigo-600 focus:ring-0 sm:text-sm"
                 placeholder="Quoi de neuf ?"
                 defaultValue={''}
@@ -283,7 +304,7 @@ export default function Post() {
               </div>
               <div className="flex-shrink-0">
                 <button
-                  type="submit" onChange={(e) => setPost(e.target.value)}
+                  type="submit"
                   className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#FD2D01] border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
                   Poster
