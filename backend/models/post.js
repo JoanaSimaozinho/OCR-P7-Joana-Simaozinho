@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 // Schéma de données qui contient les champs souhaités pour chaque post
 const postSchema = mongoose.Schema({
   content: { type: String, required: true },
+  imageUrl: { type: String, required: true },
 });
 
 // Exportation du schéma en tant que modèle Mongoose appelé "Post"

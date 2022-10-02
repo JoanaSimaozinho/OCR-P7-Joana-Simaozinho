@@ -10,6 +10,7 @@ import {
   FireIcon,
   HeartIcon,
 } from '@heroicons/react/20/solid'
+// import PostList from "../PostList/PostList";
 
 
 const moods = [
@@ -40,10 +41,8 @@ const navigation = [
 export default function Post() {
     const [selected, setSelected] = useState(moods[4])
 
-    const [email, setEmail] = useState("");
     const [post, setPost] = useState("");
     const [message, setMessage] = useState("");
-    const [comment, setComment] = useState("")
 
 
     function getCookie(name) {
@@ -51,8 +50,8 @@ export default function Post() {
       var ca = document.cookie.split(';');
       for(var i=0;i < ca.length;i++) {
           var c = ca[i];
-          while (c.charAt(0)==' ') c = c.substring(1,c.length);
-          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+          while (c.charAt(0)===' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length,c.length);
       }
       return null;
   }
@@ -60,7 +59,6 @@ export default function Post() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       console.log(post);
-      debugger
       const token = getCookie('token');
       if (!token) {
         alert("Vous n'êtes pas authentifié");
@@ -86,9 +84,7 @@ export default function Post() {
         }
         })
         .then((resJson)=>{
-            setEmail("");
             setPost("");
-            setComment("");
             setMessage("Posted successfully");
             
         })
@@ -219,6 +215,7 @@ export default function Post() {
                 defaultValue={''}
               />
             </div>
+            
             <div className="flex justify-between pt-2">
               <div className="flex items-center space-x-5">
                 <div className="flow-root">
@@ -304,7 +301,8 @@ export default function Post() {
               </div>
               <div className="flex-shrink-0">
                 <button
-                  type="submit"
+                  type="submit" 
+                  // Au click faire apparaitre le post qui a été crée
                   className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#FD2D01] border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
                   Poster
@@ -315,6 +313,8 @@ export default function Post() {
           </form>
         </div>
       </div>
+
+      {/* Faire apparaitre la liste des post users */}
       </>
     )
   }
